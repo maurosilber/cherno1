@@ -1,7 +1,5 @@
-import timeit
-
 import numpy as np
-from cherno1.common import find_first_zero, similarity
+from cherno1.common import find_first_zero, find_last_zero, similarity
 from ward import test
 
 
@@ -42,19 +40,6 @@ def _():
     assert similarity(x, y) == 1
 
 
-@test("Benchmark: Similarity")
-def _():
-    x, y = np.random.randint(0, 22, size=(2, 33)).astype(np.uint8)
-    globals = {"similarity": similarity, "x": x, "y": y}
-    t_fast = timeit.timeit(
-        "similarity(x, y)", setup="similarity(x, y)", globals=globals, number=1000
-    )
-    globals = {"similarity_numpy": similarity_numpy, "x": x, "y": y}
-    t_slow = timeit.timeit("similarity_numpy(x, y)", globals=globals, number=1000)
-    assert t_fast < t_slow
-    print(f"x{t_slow/t_fast:.1f}")
-
-
 @test("Find first zero")
 def _():
     x = np.ones(10, dtype=int)
@@ -66,14 +51,11 @@ def _():
         assert find_first_zero(x) == find_first_zero_numpy(x)
 
 
-@test("Benchmark: Find first zero")
+@test("Find last zero")
 def _():
-    x = np.ones(10_000, dtype=int)
-    for i in np.linspace(0, x.size - 1, 5, dtype=int)[::-1]:
+    x = np.ones(10, dtype=int)
+    assert find_last_zero(x) is None
+
+    for i in range(10):
         x[i] = 0
-        globals = {"func": find_first_zero, "x": x}
-        t_fast = timeit.timeit("func(x)", setup="func(x)", globals=globals, number=1000)
-        globals["func"] = find_first_zero_numpy
-        t_slow = timeit.timeit("func(x)", setup="func(x)", globals=globals, number=1000)
-        assert t_fast < t_slow
-        print(f"x{t_slow/t_fast:.1f}")
+        assert find_last_zero(x) == i

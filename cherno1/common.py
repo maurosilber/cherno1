@@ -22,3 +22,10 @@ def find_first_zero(x: np.array) -> Optional[int]:
     for i in range(x.size):
         if x[i] == 0:
             return i
+
+
+@njit(inline="always")
+def find_last_zero(x: np.array) -> Optional[int]:
+    i = find_first_zero(x[::-1])
+    if i is not None:
+        return x.size - 1 - i
