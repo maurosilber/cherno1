@@ -18,14 +18,14 @@ def similarity(x: np.array, y: np.array) -> int:
 
 
 @njit(inline="always")
-def find_first_zero(x: np.array) -> Optional[int]:
+def find_first_equal(x: np.array, value: int = 0) -> Optional[int]:
     for i in range(x.size):
-        if x[i] == 0:
+        if x[i] == value:
             return i
 
 
 @njit(inline="always")
-def find_last_zero(x: np.array) -> Optional[int]:
-    i = find_first_zero(x[::-1])
+def find_last_equal(x: np.array, value: int = 0) -> Optional[int]:
+    i = find_first_equal(x[::-1])
     if i is not None:
         return x.size - 1 - i

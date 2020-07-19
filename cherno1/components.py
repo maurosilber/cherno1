@@ -1,7 +1,7 @@
 import numpy as np
 from numba import njit
 
-from .common import find_first_zero, find_last_zero, similarity
+from .common import find_first_equal, find_last_equal, similarity
 
 
 @njit(inline="always")
@@ -21,8 +21,8 @@ def find_component(data, components, label, threshold):
 @njit
 def _find_components(data, components, threshold):
     label = 0
-    while (start := find_first_zero(components)) is not None:
-        end = find_last_zero(components) + 1
+    while (start := find_first_equal(components)) is not None:
+        end = find_last_equal(components) + 1
         label += 1
         find_component(data[start:end], components[start:end], label, threshold)
     return label

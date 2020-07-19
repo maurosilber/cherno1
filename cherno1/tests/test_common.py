@@ -1,5 +1,5 @@
 import numpy as np
-from cherno1.common import find_first_zero, find_last_zero, similarity
+from cherno1.common import find_first_equal, find_last_equal, similarity
 from ward import test
 
 
@@ -43,19 +43,19 @@ def _():
 @test("Find first zero")
 def _():
     x = np.ones(10, dtype=int)
-    assert find_first_zero(x) is None
+    assert find_first_equal(x) is None
 
     for _ in range(1000):
         size = np.random.randint(100)
         x = np.random.randint(0, 10, size=size)
-        assert find_first_zero(x) == find_first_zero_numpy(x)
+        assert find_first_equal(x) == find_first_zero_numpy(x)
 
 
 @test("Find last zero")
 def _():
     x = np.ones(10, dtype=int)
-    assert find_last_zero(x) is None
+    assert find_last_equal(x) is None
 
     for i in range(10):
         x[i] = 0
-        assert find_last_zero(x) == i
+        assert find_last_equal(x) == i

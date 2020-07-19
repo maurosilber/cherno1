@@ -1,5 +1,5 @@
 import numpy as np
-from cherno1.common import find_first_zero, similarity
+from cherno1.common import find_first_equal, similarity
 from cherno1.components import find_component, find_components
 from ward import each, fixture, test
 
@@ -20,7 +20,7 @@ def find_component_slow(data, threshold):
 def find_components_slow(data, threshold):
     components = np.zeros(len(data), np.int32)
     label = 0
-    while (i := find_first_zero(components)) is not None:
+    while (i := find_first_equal(components)) is not None:
         component = find_component_slow(data[i:], threshold)
         label += 1
         for c in component:
