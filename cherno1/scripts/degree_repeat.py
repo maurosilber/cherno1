@@ -1,3 +1,11 @@
+"""
+Calculate degree distribution for each repeat for each similarity threshold.
+
+OUTPUT: degree array of (N repeats, k similarity level)
+
+So, array[i,j] is the number of edges for repeat i at similarity j.
+"""
+
 from pathlib import Path
 
 import click
@@ -23,7 +31,7 @@ from cherno1.degree import degree_by_similarity
     "--n", default=-1, type=click.INT, help="Only process the first N repeats."
 )
 def degrees(file, outdir, n, progress):
-    """Calculate components at similarity >= THRESHOLD from repeats file FILE."""
+    """Calculate degree distribution for each repeat at similarity >= THRESHOLD from repeats file FILE."""
     outfile = Path(outdir) / "degree_by_similarity.npy"
     data = np.load(file)[:n]
     degrees = degree_by_similarity(data, progress=progress, batch_size=progress)

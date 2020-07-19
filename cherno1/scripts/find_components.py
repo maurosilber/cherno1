@@ -1,3 +1,8 @@
+"""
+Calculate components at a given similarity threshold for repeats
+"""
+
+
 from pathlib import Path
 
 import click
