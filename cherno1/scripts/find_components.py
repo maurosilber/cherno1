@@ -20,7 +20,7 @@ from cherno1.components import find_components
     help="Directory to save the output.",
 )
 @click.option(
-    "--n", default=-1, type=click.INT, help="Only process the first N repeats."
+    "--n", default=None, type=click.INT, help="Only process the first N repeats."
 )
 def components(file, threshold, outdir, n):
     """Calculate components at similarity >= THRESHOLD from repeats file FILE."""
