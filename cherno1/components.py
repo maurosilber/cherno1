@@ -44,10 +44,8 @@ def find_components_by_array(repeats, array_map):
     order = np.argsort(array_map)
     x = array_map[order]
 
-    import tqdm
-
     end = 0
-    for i in tqdm.trange(n):
+    for i in range(n):
         x, order = x[end:], order[end:]
         end = find_first_equal(x, i + 1)
         array_repeats = repeats[order[:end]]
@@ -58,6 +56,7 @@ def find_components_by_array(repeats, array_map):
         elif array_n == 2:
             s = similarity(*array_repeats)
             min_similarity[i, :s] = 1
+            min_similarity[i, s:] = 2
         else:
             for s in reversed(range(k)):
                 components = np.zeros(array_n, int)
