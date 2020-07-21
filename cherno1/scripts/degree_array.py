@@ -10,10 +10,7 @@ import numpy as np
 from cherno1.degree import degree_by_similarity_by_array
 
 
-def _func():
+def calc_degree_by_array():
     array_map = np.load("../data/repeats_map.npy")
     repeats = np.load("../data/internal_repeats_num_ali.npy")
     return degree_by_similarity_by_array(repeats, array_map)
-
-
-degree_by_array = _func()
