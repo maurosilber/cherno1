@@ -41,7 +41,7 @@ def degree_by_similarity(repeats, progress=False, batch_size=16):
 
 def degree_upto_similarity(repeats, *args, **kwargs):
     degree = degree_by_similarity(repeats, *args, **kwargs)
-    return np.cumsum(degree[:, ::-1])[:, ::-1]
+    return np.cumsum(degree[:, ::-1], axis=1)[:, ::-1]
 
 
 @njit
