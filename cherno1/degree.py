@@ -39,6 +39,11 @@ def degree_by_similarity(repeats, progress=False, batch_size=16):
     return degree.astype(np.min_scalar_type(degree.max()))
 
 
+def degree_upto_similarity(repeats, *args, **kwargs):
+    degree = degree_by_similarity(repeats, *args, **kwargs)
+    return np.cumsum(degree[:, ::-1])[:, ::-1]
+
+
 @njit
 def _degree_by_similarity_for_array(array, degree):
     for repeat in array:
