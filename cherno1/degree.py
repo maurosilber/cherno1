@@ -62,3 +62,13 @@ def degree_by_similarity_by_array(repeats, array_map):
         x, order = x[end:], order[end:]
 
     return degree.astype(np.min_scalar_type(degree.max()))
+
+
+@njit(inline="always")
+def degree_by_similarity_between_supernodes(sn1, sn2):
+    degree = np.zeros(sn1.shape[1] + 1, dtype=np.int32)
+    for x in sn1:
+        for y in sn2:
+            d = similarity(x, y)
+            degree[d] += 1
+    return degree
