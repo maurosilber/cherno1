@@ -1,4 +1,5 @@
 import numpy as np
+import tqdm
 from numba import njit, prange
 
 from .common import find_first_equal, similarity
@@ -45,28 +46,26 @@ def degree_upto_similarity(repeats, *args, **kwargs):
 
 
 @njit
-def _degree_by_similarity_for_array(array, degree):
-    for repeat in array:
-        _degree_by_similarity_for_repeat(array, repeat, degree)
-    degree //= 2
+def _degree_by_similarity_for_array(repeats, degrees, index):
+    _repeats = repeats[index]
+    for i in index:
+        _degree_by_similarity_for_repeat(_repeats, repeats[i], degrees[i])
 
 
-def degree_by_similarity_by_array(repeats, array_map):
-    n = array_map.max() + 1
-    _, k = repeats.shape
-    degree = np.zeros((n, k + 1), dtype=int)
+def degree_by_similarity_by_map(repeats, repeat_map, progress=False):
+    n, k = repeats.shape
+    degrees = np.zeros((n, k + 1), dtype=int)
 
-    order = np.argsort(array_map)
-    x = array_map[order]
+    order = np.argsort(repeat_map)
+    repeat_map = repeat_map[order]
 
-    for i in range(n):
-        end = find_first_equal(x, i + 1)
-        if end > 1:
-            array = repeats[order[:end]]
-            _degree_by_similarity_for_array(array, degree[i])
-        x, order = x[end:], order[end:]
+    for i in tqdm.trange(n, disable=not progress):
+        end = find_first_equal(repeat_map, i + 1)
+        if (end is None) or (end > 1):
+            _degree_by_similarity_for_array(repeats, degrees, order[:end])
+        repeat_map, order = repeat_map[end:], order[end:]
 
-    return degree.astype(np.min_scalar_type(degree.max()))
+    return degrees.astype(np.min_scalar_type(degrees.max()))
 
 
 @njit(inline="always")
