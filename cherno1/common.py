@@ -29,3 +29,7 @@ def find_last_equal(x: np.array, value: int = 0) -> Optional[int]:
     i = find_first_equal(x[::-1])
     if i is not None:
         return x.size - 1 - i
+
+
+def castdown(x):
+    return x.astype(np.min_scalar_type(x.max()))

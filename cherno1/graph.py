@@ -1,3 +1,4 @@
+import igraph
 import networkx as nx
 import numpy as np
 import tqdm
@@ -33,7 +34,17 @@ def _edges_for_repeat(repeats, repeat, threshold):
 
 def build_graph(repeats, threshold, progress=False):
     graph = nx.Graph()
+    graph.add_nodes_from(range(len(repeats)))
     for i, repeat in enumerate(tqdm.tqdm(repeats, disable=not progress)):
-        edge = _edges_for_repeat(repeats[i:], repeat, threshold)
-        graph.add_edges_from([(i, j) for j in np.nonzero(edge)[0]])
+        edges = _edges_for_repeat(repeats[:i], repeat, threshold)
+        graph.add_edges_from([(i, j) for j in np.nonzero(edges)[0]])
+    return graph
+
+
+def build_igraph(repeats, threshold, progress=False):
+    graph = igraph.Graph()
+    graph.add_vertices(len(repeats))
+    for i, repeat in enumerate(tqdm.tqdm(repeats, disable=not progress)):
+        edges = _edges_for_repeat(repeats[:i], repeat, threshold)
+        graph.add_edges([(i, j) for j in np.nonzero(edges)[0]])
     return graph
