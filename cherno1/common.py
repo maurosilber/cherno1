@@ -32,4 +32,4 @@ def find_last_equal(x: np.array, value: int = 0) -> Optional[int]:
 
 
 def castdown(x):
-    return x.astype(np.min_scalar_type(x.max()))
+    return np.asarray(x, dtype=np.min_scalar_type(np.max(x)))
