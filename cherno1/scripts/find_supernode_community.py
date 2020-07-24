@@ -34,8 +34,8 @@ def cli(repeat_file, supernode_file, supernodes, min_similarity):
         supernodes = np.unique(supernode_array)
 
     def _data(supernodes, min_similarity):
-        for sn in supernodes:
-            for s in range(33, min_similarity, -1):
+        for s in range(33, min_similarity, -1):
+            for sn in supernodes:
                 yield repeats[supernode_array == sn], sn, s
 
     p_umap(
