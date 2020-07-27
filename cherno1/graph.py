@@ -41,10 +41,9 @@ def build_graph(repeats, threshold, progress=False):
     return graph
 
 
+def networkx_to_igraph(graph):
+    return igraph.Graph(len(graph), graph.edges)
+
+
 def build_igraph(repeats, threshold, progress=False):
-    graph = igraph.Graph()
-    graph.add_vertices(len(repeats))
-    for i, repeat in enumerate(tqdm.tqdm(repeats, disable=not progress)):
-        edges = _edges_for_repeat(repeats[:i], repeat, threshold)
-        graph.add_edges([(i, j) for j in np.nonzero(edges)[0]])
-    return graph
+    return networkx_to_igraph(build_graph(repeats, threshold, progress=progress))
