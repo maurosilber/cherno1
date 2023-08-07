@@ -7,6 +7,7 @@ So, array[i,j] is the number of internal edges for array i at similarity j.
 """
 
 import numpy as np
+
 from cherno1.components import find_components_by_array
 
 

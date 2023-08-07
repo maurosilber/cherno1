@@ -1,8 +1,9 @@
 import networkx as nx
 import numpy as np
+from ward import fixture, test
+
 from cherno1.common import similarity
 from cherno1.graph import adjacency_matrix
-from ward import fixture, test
 
 
 def build_graph(data, threshold):
