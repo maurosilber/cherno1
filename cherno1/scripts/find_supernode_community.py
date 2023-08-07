@@ -2,9 +2,10 @@ from pathlib import Path
 
 import click
 import numpy as np
+from p_tqdm import p_umap
+
 from cherno1.common import castdown
 from cherno1.graph import build_igraph
-from p_tqdm import p_umap
 
 
 def func(supernode_repeats, supernode, similarity):
@@ -24,7 +25,10 @@ def func(supernode_repeats, supernode, similarity):
 @click.argument("supernode_file", type=click.Path(exists=True, dir_okay=False))
 @click.argument("supernodes", nargs=-1, type=click.INT)
 @click.option(
-    "--min-similarity", type=click.INT, default=10, help="Upto this similarity.",
+    "--min-similarity",
+    type=click.INT,
+    default=10,
+    help="Upto this similarity.",
 )
 def cli(repeat_file, supernode_file, supernodes, min_similarity):
     repeats = np.load(repeat_file)["repeats"]

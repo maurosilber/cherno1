@@ -10,6 +10,7 @@ from pathlib import Path
 
 import click
 import numpy as np
+
 from cherno1.degree import degree_by_similarity
 
 

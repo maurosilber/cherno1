@@ -1,7 +1,8 @@
 import numpy as np
+from ward import each, fixture, test
+
 from cherno1.common import find_first_equal, similarity
 from cherno1.components import find_component, find_components
-from ward import each, fixture, test
 
 
 def find_component_slow(data, threshold):

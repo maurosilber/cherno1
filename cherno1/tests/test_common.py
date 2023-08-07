@@ -1,6 +1,7 @@
 import numpy as np
-from cherno1.common import find_first_equal, find_last_equal, similarity
 from ward import test
+
+from cherno1.common import find_first_equal, find_last_equal, similarity
 
 
 def similarity_numpy(x, y):

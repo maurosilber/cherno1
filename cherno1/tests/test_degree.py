@@ -1,9 +1,10 @@
 import networkx as nx
 import numpy as np
 import pandas as pd
+from ward import each, fixture, test
+
 from cherno1.common import similarity
 from cherno1.degree import degree_by_similarity
-from ward import each, fixture, test
 
 
 def build_graph(data, threshold):
